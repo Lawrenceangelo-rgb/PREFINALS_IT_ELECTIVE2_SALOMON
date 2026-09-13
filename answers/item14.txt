@@ -1,0 +1,3 @@
+Item 14 Answer: A
+Topic: Data Normalization & Integrity
+Explanation: Attackers or modified clients can bypass browser validation; server validation ensures data security.
