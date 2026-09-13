@@ -1,0 +1,3 @@
+Item 7 Answer: B
+Topic: Conceptual Data Architecture
+Explanation: From Section to Student, it is a One-to-Many relationship (one section has many students).
