@@ -1,0 +1,3 @@
+Item 10 Answer: B
+Topic: Conceptual Data Architecture
+Explanation: .Include() specifies related entities to be included in query results (eager loading).
