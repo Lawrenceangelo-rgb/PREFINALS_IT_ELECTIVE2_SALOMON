@@ -1,0 +1,3 @@
+Item 4 Answer: A
+Topic: Relational Data Modeling
+Explanation: DbContext coordinates EF Core functionality and manages sessions with the underlying database.
