@@ -1,0 +1,3 @@
+Item 13 Answer: B
+Topic: Data Normalization & Integrity
+Explanation: Client-side validation executes in the browser using JavaScript before form submission.
