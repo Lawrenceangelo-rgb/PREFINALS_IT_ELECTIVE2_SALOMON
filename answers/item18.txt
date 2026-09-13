@@ -1,0 +1,3 @@
+Item 18 Answer: B
+Topic: SQL & In-Memory Operations
+Explanation: UseExceptionHandler configures global exception handling middleware in the pipeline.
