@@ -1,0 +1,3 @@
+Item 16 Answer: A
+Topic: SQL & In-Memory Operations
+Explanation: Database constraints serve as the final line of defense for structural data integrity.
