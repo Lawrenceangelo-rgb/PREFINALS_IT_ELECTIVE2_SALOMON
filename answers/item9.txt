@@ -1,0 +1,3 @@
+Item 9 Answer: B
+Topic: Conceptual Data Architecture
+Explanation: Navigation properties enable traversal across relationships between entity objects.
