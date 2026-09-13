@@ -1,0 +1,3 @@
+Item 8 Answer: B
+Topic: Conceptual Data Architecture
+Explanation: SectionId holds the key value linking the entity to its parent Section table record.
