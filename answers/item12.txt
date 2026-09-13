@@ -1,0 +1,3 @@
+Item 12 Answer: A
+Topic: Data Normalization & Integrity
+Explanation: It ensures that the Section entity attached to each Student is fetched in the SQL query.
