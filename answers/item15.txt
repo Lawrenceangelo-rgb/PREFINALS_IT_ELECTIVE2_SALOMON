@@ -1,0 +1,3 @@
+Item 15 Answer: B
+Topic: Data Normalization & Integrity
+Explanation: Unique constraints ensure no two records share identical identifiers.
