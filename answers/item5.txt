@@ -1,0 +1,3 @@
+Item 5 Answer: C
+Topic: Relational Data Modeling
+Explanation: The scaffold command reverse-engineers a database schema into model classes and a DbContext class.
