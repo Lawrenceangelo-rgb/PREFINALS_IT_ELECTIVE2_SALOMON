@@ -1,0 +1,172 @@
+﻿@model List<IT_ELECTIVE_2_PREFINAL_EXAM.Models.ExamQuestion>
+
+@{
+    ViewData["Title"] = "Prefinal Exam Reviewer";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+    .exam-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        border-radius: 16px;
+        padding: 2rem;
+    }
+
+    .option-btn {
+        transition: all 0.2s ease-in-out;
+        text-align: left;
+        border: 2px solid #e9ecef;
+        background-color: #f8f9fa;
+        color: #212529;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 12px 16px;
+        border-radius: 10px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+        background-color: #e2e6ea;
+        border-color: #ced4da;
+        transform: translateY(-2px);
+    }
+
+    .option-btn.correct {
+        background-color: #d1e7dd !important;
+        border-color: #0f5132 !important;
+        color: #0f5132 !important;
+        font-weight: bold;
+    }
+
+    .option-btn.wrong {
+        background-color: #f8d7da !important;
+        border-color: #842029 !important;
+        color: #842029 !important;
+    }
+
+    .card-question {
+        border-radius: 14px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card-question:hover {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08) !important;
+    }
+
+    .explanation-box {
+        display: none;
+        animation: fadeIn 0.4s ease-in-out forwards;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="container py-4">
+    <!-- Header Banner -->
+    <div class="exam-header shadow-sm mb-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1 class="h2 fw-bold mb-1"><i class="bi bi-patch-check-fill me-2"></i>IT ELECTIVE 2 – PREFINALS EXAM</h1>
+                <p class="mb-0 text-white-50">Interactive Self-Assessment Reviewer Dashboard</p>
+            </div>
+            <div class="bg-white bg-opacity-10 px-4 py-2 rounded-3 text-center border border-white border-opacity-25">
+                <span class="d-block small text-uppercase tracking-wider text-white-50">Score</span>
+                <span id="score-counter" class="h3 fw-bold mb-0">0 / 20</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Questions Grid -->
+    <div class="row g-4">
+        @foreach (var q in Model)
+        {
+            <div class="col-md-6">
+                <div class="card h-100 card-question border-0 shadow-sm bg-white">
+                    <div class="card-header bg-transparent border-0 pt-3 px-4 d-flex justify-content-between align-items-center">
+                        <span class="badge bg-primary rounded-pill px-3 py-2">Question #@q.Number</span>
+                        <span class="badge bg-light text-secondary border">@q.Topic</span>
+                    </div>
+
+                    <div class="card-body px-4">
+                        <h5 class="card-title fw-semibold mb-3">@q.QuestionText</h5>
+
+                        <div class="d-grid gap-2 my-3" id="options-group-@q.Number">
+                            @foreach (var opt in q.Options)
+                            {
+                                string letter = opt.Substring(0, 1);
+                                bool isCorrectKey = (letter == q.CorrectOption);
+
+                                <button class="btn option-btn text-start d-flex justify-content-between align-items-center"
+                                        type="button"
+                                        onclick="checkAnswer(@q.Number, '@letter', '@q.CorrectOption', this)">
+                                    <span>@opt</span>
+                                    <i class="bi status-icon"></i>
+                                </button>
+                            }
+                        </div>
+
+                        <!-- Feedback Alert -->
+                        <div id="feedback-@q.Number" class="alert explanation-box mb-0 mt-3" role="alert">
+                            <div class="fw-bold mb-1 d-flex align-items-center gap-2">
+                                <span class="feedback-title"></span>
+                            </div>
+                            <hr class="my-2">
+                            <small class="d-block"><strong>Explanation:</strong> @q.Explanation</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    let totalAnswered = 0;
+    let correctCount = 0;
+
+    function checkAnswer(qNum, selectedOption, correctOption, clickedBtn) {
+        const group = document.getElementById(`options-group-${qNum}`);
+        const buttons = group.querySelectorAll('.option-btn');
+        const feedbackBox = document.getElementById(`feedback-${qNum}`);
+        const feedbackTitle = feedbackBox.querySelector('.feedback-title');
+
+        // Disable all option buttons for this question once selected
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            const btnText = btn.querySelector('span').innerText;
+            const btnLetter = btnText.charAt(0);
+
+            // Always highlight the actual correct answer in green
+            if (btnLetter === correctOption) {
+                btn.classList.add('correct');
+                btn.querySelector('.status-icon').classList.add('bi-check-circle-fill');
+            }
+        });
+
+        // If the user picked wrong, color their choice red
+        if (selectedOption !== correctOption) {
+            clickedBtn.classList.add('wrong');
+            clickedBtn.querySelector('.status-icon').classList.add('bi-x-circle-fill');
+
+            feedbackBox.classList.remove('alert-success');
+            feedbackBox.classList.add('alert-danger');
+            feedbackTitle.innerHTML = '<i class="bi bi-x-circle me-1"></i> Incorrect Answer';
+        } else {
+            correctCount++;
+            feedbackBox.classList.remove('alert-danger');
+            feedbackBox.classList.add('alert-success');
+            feedbackTitle.innerHTML = '<i class="bi bi-check-circle me-1"></i> Correct Answer!';
+        }
+
+        // Show explanation box
+        feedbackBox.style.display = 'block';
+
+        // Update top score counter
+        totalAnswered++;
+        document.getElementById('score-counter').innerText = `${correctCount} / 20`;
+    }
+</script>
