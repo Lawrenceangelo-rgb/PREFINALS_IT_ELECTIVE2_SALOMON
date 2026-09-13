@@ -1,0 +1,3 @@
+Item 20 Answer: A
+Topic: SQL & In-Memory Operations
+Explanation: Duplicate assignments violate business rules and compromise relational data integrity.
