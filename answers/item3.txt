@@ -1,0 +1,3 @@
+Item 3 Answer: C
+Topic: Relational Data Modeling
+Explanation: EF Core acts as an Object-Relational Mapper (ORM) translating C# objects to relational database tables.
