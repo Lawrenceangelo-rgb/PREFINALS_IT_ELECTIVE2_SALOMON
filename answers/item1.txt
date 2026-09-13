@@ -1,0 +1,3 @@
+Item 1 Answer: C
+Topic: Relational Data Modeling
+Explanation: In-memory data is volatile and lost when the application stops. A database provides persistent storage.
