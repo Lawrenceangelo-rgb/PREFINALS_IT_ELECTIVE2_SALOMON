@@ -1,0 +1,3 @@
+Item 17 Answer: B
+Topic: SQL & In-Memory Operations
+Explanation: Try-catch blocks intercept runtime errors to prevent application crashes and handle errors gracefully.
